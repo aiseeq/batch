@@ -32,7 +32,12 @@ func TestBatch_Add(t *testing.T) {
 	b.Add(myRow{"And the limit is", "two"})
 	ok := b.Add(myRow{"This row", "will be discarded"})
 
+	if b.Len() != 2 {
+		t.Errorf("Queue length. Expected: 2, got: %d", b.Len())
+	}
+
 	b.Wait()
+
 	if insertCounter != 2 {
 		t.Errorf("Wrong inserted rows count. Expected: 2, got: %d", insertCounter)
 	}

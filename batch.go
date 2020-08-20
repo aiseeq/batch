@@ -22,10 +22,14 @@ func (b *Batch) Add(row interface{}) bool {
 	}
 }
 
+func (b *Batch) Len() int {
+	return len(b.queue)
+}
+
 // Wait can be used to wait until all elements in batch will be processed
 // For example on application shutdown when Add() isn't called anymore
 func (b *Batch) Wait() {
-	for len(b.queue) > 0 {
+	for b.Len() > 0 {
 		time.Sleep(time.Millisecond)
 	}
 }
